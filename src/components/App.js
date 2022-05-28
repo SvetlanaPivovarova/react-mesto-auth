@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Route, Switch, useHistory} from 'react-router-dom';
+import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import Header from './Header';
 import Main from "./Main";
 import Login from "./Login";
@@ -55,11 +55,7 @@ function App() {
         auth.authorize(password, email)
             .then(() => {
                 setLoggedIn(true);
-                console.log('logged:', loggedIn);
                 setUserData(email);
-                setIsInfoTooltipOpen(true);
-                setTooltipMessage('Вы успешно авторизовались!');
-                setMessageIcon(toolTipIconSuc);
             })
             .then(() => {
                 history.push("/");
@@ -143,13 +139,11 @@ function App() {
                 console.error(err);
                 throw err;
             });
-    },[]);
+    },[loggedIn]);
 
     function handleUpdateUser({name, about}) {
-        console.log({name, about});
         api.editProfile({name, about})
             .then((newUser) => {
-                console.log(newUser);
                 setCurrentUser(newUser);
                 closeAllPopups();
             })
@@ -231,6 +225,9 @@ function App() {
                         </Route>
                         <Route path='/sign-up'>
                             <Register onRegister={handleRegister} />
+                        </Route>
+                        <Route path="*">
+                            <Redirect to={'/sign-in'} />
                         </Route>
                     </Switch>
 

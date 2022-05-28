@@ -11,7 +11,6 @@ function Register({onRegister}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('login', login);
         const { password, email } = login;
         if (onRegister && password && email) {
             onRegister(password, email);

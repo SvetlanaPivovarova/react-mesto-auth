@@ -19,7 +19,6 @@ export const register = ( {password, email} ) => {
             email: email
         })
     }).then((res) => {
-        console.log(res);
         return checkResponse(res);
     });
 };
@@ -42,11 +41,9 @@ export const authorize = (password, email) => {
         .then((data) => {
             if (data.token){
                 localStorage.setItem('jwt', data.token);
-                console.log('setted jwt', data.token);
                 return data.token;
             }
         })
-        .catch(err => console.log(err))
 };
 
 export const checkToken = (token) => {

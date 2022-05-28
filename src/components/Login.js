@@ -6,12 +6,10 @@ function Login({onLogin}) {
     const handleChange = (event) => {
         const { value, name } = event.target;
         setLogin({ ...login, [name]: value });
-        console.log('signed login:', login);
     };
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('signed login:', login);
         onLogin(login.password, login.email);
     }
 
